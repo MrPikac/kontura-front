@@ -4,14 +4,20 @@ import Home from "../views/Home.vue";
 import ConstructionSites from "../views/ConstructionSites.vue";
 import AddConstructionSite from "../views/AddConstructionSite.vue";
 import Users from "../views/Users.vue";
-
+import AddUser from "../views/AddUser.vue";
+import Profile from "../views/Profile.vue";
+import Building from "../views/Building.vue";
+import EditProfile from "../views/EditProfile.vue"
+import EditConstructionSite from "../views/EditConstructionSite.vue"
+import LogIn from "../views/LogIn.vue"
+import LogOut from "../views/LogOut.vue"
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
   },
   {
     path: "/about",
@@ -37,6 +43,46 @@ const routes = [
     name: "Users",
     component: Users
   },
+  {
+    path: "/add-user",
+    name: "AddUser",
+    component: AddUser
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+    props: true
+  },
+  {
+    path: "/building",
+    name: "Building",
+    component: Building,
+    props: true
+  },
+  {
+    path: "/edit-profile",
+    name: "EditProfile",
+    component: EditProfile,
+    props: true
+  },
+  {
+    path: "/edit-construction-site",
+    name: "EditConstructionSite",
+    component: EditConstructionSite,
+    props: true
+  },
+  {
+    path: "/login",
+    name: "LogIn",
+    component: LogIn,
+  },
+  {
+    path: "/logout",
+    name: "LogOut",
+    component: LogOut,
+  },
+
 
 ];
 

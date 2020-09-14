@@ -1,0 +1,144 @@
+.pozadina {
+  margin: 0;
+  background-color: #f6f4e6;
+}
+
+
+.img-fluid {
+  width: 100%;
+}
+
+.logo {
+  position: absolute;
+  height: 60px;
+  margin: 10px;
+}
+
+.logo1 {
+  position: absolute;
+  height: 100px;
+  margin: 130px 0 0 600px;
+}
+
+.logotext{
+  color: #f6f4e6;
+  position: absolute;
+  padding: 20px 0 0 20px;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-size: 20px;
+}
+
+.textprekoslike {
+  color: #f6f4e6;
+  font-family: 'Kumbh Sans', sans-serif;
+  position: absolute;
+padding-left: 25rem;
+padding-top: 200px;
+}
+
+.textprekoslike1 {
+  color: #f6f4e6;
+  font-family: 'Kumbh Sans', sans-serif;
+  position: absolute;
+padding-left: 27rem;
+padding-top: 200px;
+}
+
+.textprekoslike2 {
+  color: #f6f4e6;
+  font-family: 'Kumbh Sans', sans-serif;
+  position: absolute;
+padding-left: 33rem;
+padding-top: 200px;
+}
+
+.textprekoslike3 {
+  color: #f6f4e6;
+  font-family: 'Kumbh Sans', sans-serif;
+  position: absolute;
+  padding-left: 34.5rem;
+  padding-top: 250px;
+}
+
+
+.podnaslov {
+  color: #f6f4e6;
+  text-align: center;
+  position: absolute;
+  padding-left: 20rem;
+  padding-top: 250px;
+  padding-right: 20rem;
+}
+
+.nav {
+  position: absolute;
+padding-left: 680px;
+padding-top: 10px
+}
+
+.nav-link {
+  color: #f6f4e6;
+}
+
+.servicestext{
+  padding-top: 20px;
+  font-family: 'Kumbh Sans', sans-serif;
+  color: #41444b;
+text-align: center;
+}
+
+.serviceslinija {
+  width: 10%;
+  border-color: #fddb3a;
+  padding-bottom: 15px;
+}
+
+.card-text {
+  text-align: center;
+}
+
+.karticenaslovi {
+  text-align: center;
+  font-family: 'Kumbh Sans', sans-serif;
+  color: #fddb3a;
+  font-size: 24px;
+}
+
+.linijakartice {
+  width: 20%;
+  border-color: #41444b;
+  padding: 2px;
+}
+
+.abouttext {
+  text-align: center;
+}
+
+.personname {
+  font-family: 'Kumbh Sans', sans-serif;
+  color: #52575d;
+  text-align: center;
+}
+
+.contactimage {
+  max-height: 100px;
+  max-width: 100px;
+  margin-left: 120px;
+}
+
+.contacttext {
+  color: #52575d;
+  text-align: center;
+}
+
+.contactcont {
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+.cardlogin {
+  font-family: 'Kumbh Sans', sans-serif;
+  text-align: center;
+  color: #f6f4e6;
+  background-color: #fddb3a;
+}

@@ -8,7 +8,7 @@
               <!-- form card login -->
               <div class="card rounded-0">
                 <div class="card-header cardlogin">
-                  <h3 class="mb-0">Add Construction Site</h3>
+                  <h3 class="mb-0">Edit User</h3>
                 </div>
                 <div class="card-body">
                   <form
@@ -21,7 +21,7 @@
                   >
                     <div class="form-group">
                       <label for="uname1">
-                        <b>Address:</b>
+                        <b>First Name:</b>
                       </label>
                       <input
                         type="text"
@@ -29,22 +29,21 @@
                         name="uname1"
                         id="uname1"
                         required
-                        v-model="site.address"
-                        placeholder="Address"
+                        v-model="user.firstName"
 
 
                       />
                       <div class="invalid-feedback">Oops, you missed this one.</div>
                       <div class="form-group">
                         <label>
-                          <b>Description:</b>
+                          <b>Last Name:</b>
                         </label>
                         <input
                           type="text"
                           class="form-control form-control-lg rounded-0"
                           required
-                          v-model="site.description"
-                          placeholder="Description"
+                          v-model="user.lastName"
+
 
                         />
                         <div class="invalid-feedback">Oops, you missed this one.</div>
@@ -52,33 +51,48 @@
                     </div>
                     <div class="form-group">
                       <label>
-                        <b>Year:</b>
+                        <b>Email:</b>
                       </label>
                       <input
                         type="text"
                         class="form-control form-control-lg rounded-0"
                         required
-                        v-model="site.year"
-                        placeholder="Year"
+                        v-model="user.email"
+
+
                       />
                       <div class="invalid-feedback">Oops, you missed this one.</div>
                     </div>
-                   <div class="form-group" v-if="users">
-          <label for="exampleFormControlSelect1">Select Supervisor</label>
-          <select v-model="site.user_id" class="form-control" id="exampleFormControlSelect1">
-            <option
-              v-for="user in users"
-              v-bind:key="user.id"
-              v-bind:value="user.id"
-            >{{user.firstName}}</option>
-          </select>
-        </div>
+                    <div class="form-group">
+                      <label>
+                        <b>User Name:</b>
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg rounded-0"
+                        v-model="user.userName"
+
+                      />
+
+                    </div>
+                    <div class="form-group">
+                      <label>
+                        <b>Contact Info:</b>
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg rounded-0"
+                        required
+                        v-model="user.contact"
+
+                      />
+                      <div class="invalid-feedback">Oops, you missed this one.</div>
+                    </div>
 
 
-
-                    <button type="button" v-on:click="addSite" class="btn btn-warning">
+                    <button type="button" v-on:click="editUser" class="btn btn-warning">
                       <span style="color: #f6f4e6">
-                        <b>Add Construction Site</b>
+                        <b>Edit User</b>
                       </span>
                     </button>
                   </form>
@@ -92,47 +106,49 @@
         </div>
       </div>
     </div>
-    <div v-else>
+      <div v-else>
       <h3>You have to login</h3>
     </div>
+
   </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
-  name: "AddConstructionForm",
+  name: "EditProfileForm",
   data() {
     return {
-      site: {description: "", image: "", year: "",  user_id: "", address: ""},
-      users: null,
-      yearTxt: "",
+      isAddFail: false,
+      isPasswordOK: true,
+      isEmailOK: true,
+      isAddOK: true,
       logedInUser: null,
-    }
+    };
   },
   props: {
-
+      user: null,
   },
   mounted(){
-      this.logedInUser = this.$store.getters.getLoggedIn
-      axios.get("http://localhost/api/endpoints/get_all_users.php").then(response => {this.users = response.data;})
-
-
+    this.logedInUser = this.$store.getters.getLoggedIn
   },
   methods: {
-      addSite: function(){
-        if(parseInt(this.site.year)){
-        this.site.year = parseInt(this.site.year);
-          console.log(this.site);
-          axios.post("http://localhost/api/endpoints/create_building.php/",this.site).then(resp=>{console.log(resp.data)});
-        }
+    editUser: function() {
+      this.axiosCall().then(resp=>console.log(resp.data));
 
-      },
-  },
+    },
+
+
+    axiosCall: function() {
+      return axios.put(
+        "http://localhost/api/endpoints/update_user.php/",
+        this.user
+      );
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only @import './assets/css/bootstrap.css'; -->
 <style src="@/assets/css/bootstrap.css">
-
 </style>

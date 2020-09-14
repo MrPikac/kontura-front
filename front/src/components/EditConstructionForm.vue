@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <div v-if="logedInUser" class="container py-5">
       <div class="row">
         <div class="col-md-12">
@@ -8,7 +8,7 @@
               <!-- form card login -->
               <div class="card rounded-0">
                 <div class="card-header cardlogin">
-                  <h3 class="mb-0">Add Construction Site</h3>
+                  <h3 class="mb-0">Edit Construction Site</h3>
                 </div>
                 <div class="card-body">
                   <form
@@ -30,7 +30,6 @@
                         id="uname1"
                         required
                         v-model="site.address"
-                        placeholder="Address"
 
 
                       />
@@ -44,7 +43,7 @@
                           class="form-control form-control-lg rounded-0"
                           required
                           v-model="site.description"
-                          placeholder="Description"
+
 
                         />
                         <div class="invalid-feedback">Oops, you missed this one.</div>
@@ -59,7 +58,7 @@
                         class="form-control form-control-lg rounded-0"
                         required
                         v-model="site.year"
-                        placeholder="Year"
+
                       />
                       <div class="invalid-feedback">Oops, you missed this one.</div>
                     </div>
@@ -76,9 +75,9 @@
 
 
 
-                    <button type="button" v-on:click="addSite" class="btn btn-warning">
+                    <button type="button" v-on:click="editSite" class="btn btn-warning">
                       <span style="color: #f6f4e6">
-                        <b>Add Construction Site</b>
+                        <b>Edit Construction Site</b>
                       </span>
                     </button>
                   </form>
@@ -95,23 +94,26 @@
     <div v-else>
       <h3>You have to login</h3>
     </div>
+
   </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
-  name: "AddConstructionForm",
+  name: "EditProfileForm",
   data() {
     return {
-      site: {description: "", image: "", year: "",  user_id: "", address: ""},
       users: null,
-      yearTxt: "",
+      isAddFail: false,
+      isPasswordOK: true,
+      isEmailOK: true,
+      isAddOK: true,
       logedInUser: null,
-    }
+    };
   },
   props: {
-
+    site: null
   },
   mounted(){
       this.logedInUser = this.$store.getters.getLoggedIn
@@ -120,19 +122,24 @@ export default {
 
   },
   methods: {
-      addSite: function(){
-        if(parseInt(this.site.year)){
-        this.site.year = parseInt(this.site.year);
-          console.log(this.site);
-          axios.post("http://localhost/api/endpoints/create_building.php/",this.site).then(resp=>{console.log(resp.data)});
-        }
+    editSite: function() {
+      this.axiosCall().then(resp => console.log(resp.data));
+    },
 
-      },
-  },
+    axiosCall: function() {
+      if(parseInt(this.site.year)){
+        this.site.year = parseInt(this.site.year);
+      return axios.put(
+        "http://localhost/api/endpoints/update_building.php/",
+        this.site
+      );
+      }
+
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only @import './assets/css/bootstrap.css'; -->
 <style src="@/assets/css/bootstrap.css">
-
 </style>

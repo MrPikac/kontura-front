@@ -1,8 +1,7 @@
 <template>
     <div>
-    <h3 class="align-left">Construction Sites</h3>
-    <table class="table" v-if="orgs">
-  <thead class="thead-dark">
+    <table class="table" v-if="sites">
+  <thead class="thead" style="background-color: #fddb3a;">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
@@ -13,18 +12,26 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="org in orgs" v-bind:key="org.name">
+    <tr v-for="site in sites" v-bind:key="site.id">
       <th scope="row"></th>
-      <td>{{org.name}}</td>
-      <td>A</td>
-      <td><button type="button" class="btn btn-dark" v-on:click="clickFunc">Add Counter</button></td>
+      <td>{{site.address}}</td>
+      <td>{{site.description}}</td>
+      <td><button type="button" class="btn btn-warning"  v-on:click="viewSite(site)"><span style="color: #f6f4e6">
+                        <b>View Site</b>
+                      </span></button></td>
+
 
     </tr>
 
   </tbody>
 </table>
 
-<button type="button" class="btn btn-dark" @click="$router.push('add-construction-site')">Add New Construction Site</button>
+<button v-if="logedInUser" type="button" class="btn btn-warning" @click="$router.push('add-construction-site')"><span style="color: #f6f4e6">
+                        <b>Add New Site</b>
+                      </span></button>
+  <br>
+  <br>
+  <br>
 </div>
 </template>
 
@@ -36,23 +43,25 @@ export default {
     return {
       // Initialized to zero to begin
       count: 0,
-      orgs: null,
+      sites: null,
+      logedInUser: null,
     }
   },
   props: {
 
   },
   mounted(){
-      this.count = 5;
-      axios.get("http://localhost:9003/orgs").then(response => {this.orgs = response.data;})
+      this.logedInUser = this.$store.getters.getLoggedIn
+      axios.get("http://localhost/api/endpoints/get_all_buildings.php").then(response => {this.sites = response.data;})
 
 
   },
   methods: {
-      clickFunc: function(){
-          this.count++;
+      viewSite: function(site){
+          this.$router.push({ name: 'Building', params: {site: site }})
 
       },
+
 
   },
 };

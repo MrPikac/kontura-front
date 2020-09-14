@@ -1,30 +1,31 @@
 <template>
     <div>
-    <h3 class="align-left">Construction Sites</h3>
     <table class="table" v-if="users">
-  <thead class="thead-dark">
+  <thead class="thead" style="background-color: #fddb3a;">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
+      <th scope="col">Email</th>
       <th scope="col"></th>
       <th scope="col"></th>
-      <th scope="col"></th>
-
     </tr>
   </thead>
   <tbody>
     <tr v-for="user in users" v-bind:key="user.id">
       <th scope="row"></th>
-      <td>{{user.firstName}}</td>
-      <td>A</td>
-      <td><button type="button" class="btn btn-dark" v-on:click="clickFunc">Add Counter</button></td>
-
+      <td>{{user.firstName + " " + user.lastName}}</td>
+      <td>{{user.email}}</td>
+      <td><button type="button" class="btn btn-warning" v-on:click="viewUser(user)"><span style="color: #f6f4e6">
+                        <b>View Profile</b>
+                      </span></button></td>
+      <td><button v-if="logedInUser" type="button" class="btn btn-warning" v-on:click="deleteUser(user)"><span style="color: #f6f4e6">
+                        <b>Delete</b>
+                      </span></button></td>
     </tr>
-
   </tbody>
 </table>
 
-<button type="button" class="btn btn-dark" @click="$router.push('add-user')">Add New User</button>
+<button v-if="logedInUser" type="button" class="btn btn-dark" @click="$router.push('add-user')">Add New User</button>
 </div>
 </template>
 
@@ -37,22 +38,32 @@ export default {
       // Initialized to zero to begin
       count: 0,
       users: null,
+      selectedUser: null,
+      logedInUser: null,
     }
   },
   props: {
 
   },
   mounted(){
-      this.count = 5;
+      this.logedInUser = this.$store.getters.getLoggedIn
       axios.get("http://localhost/api/endpoints/get_all_users.php").then(response => {this.users = response.data;})
 
 
   },
   methods: {
-      clickFunc: function(){
-          this.count++;
+      viewUser: function(user){
+          this.$router.push({ name: 'Profile', params: {user: user }})
+
 
       },
+      deleteUser: function(user){
+        var path = "http://localhost/api/endpoints/delete_user.php?id=";
+        axios.delete(path.concat(user.id)).then(resp=> {
+          console.log(resp.data);
+          axios.get("http://localhost/api/endpoints/get_all_users.php").then(response => {this.users = response.data;});
+          });
+      }
 
   },
 };
